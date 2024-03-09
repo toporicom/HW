@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
-public class HW2{
-    public static ArrayList<Cars> cars = new ArrayList<>(){{
+public class HW2 {
+    public static ArrayList<Cars> cars = new ArrayList<>() {{
         add(new Cars("Volvo s90", 2015, "x001xx"));
         add(new Cars("Lada Vesta", 2020, "x002xx"));
         add(new Cars("Kia Rio", 2012, "x003xx"));
     }};
     private static Scanner scan = new Scanner(System.in);
-    public static void start(){
+
+    public static void start() {
         System.out.println("Выберите действие: ");
         System.out.println("1: добавить новый автомобиль в список \n" +
                 "2: удалить автомобиль из списка по его регистрационному номеру \n" +
@@ -20,12 +21,25 @@ public class HW2{
                 "5: выход \n");
         int choose = scan.nextInt();
         scan.nextLine();
-        switch (choose){
-            case 1: {addCar(); break;}
-            case 2: {delBySerial(); break;}
-            case 3: {delAll(); break;}
-            case 4: {outAllArr(); break;}
-            case 5: break;
+        switch (choose) {
+            case 1: {
+                addCar();
+                break;
+            }
+            case 2: {
+                delBySerial();
+                break;
+            }
+            case 3: {
+                delAll();
+                break;
+            }
+            case 4: {
+                outAllArr();
+                break;
+            }
+            case 5:
+                break;
         }
     }
 
@@ -33,7 +47,8 @@ public class HW2{
         cars.forEach(System.out::println);
         start();
     }
-    private static boolean ifThereThisCar(String serial){
+
+    private static boolean ifThereThisCar(String serial) {
         return cars.stream().anyMatch(x -> x.getSerial().equals(serial));
     }
 
@@ -45,7 +60,7 @@ public class HW2{
         System.out.println("Введите регистрационный номер машины");
         scan.nextLine();
         String serial = scan.nextLine();
-        while (ifThereThisCar(serial)){
+        while (ifThereThisCar(serial)) {
             System.out.println("Такой регистрационный номер машины уже имеется, введите другой");
             serial = scan.nextLine();
         }
@@ -53,16 +68,18 @@ public class HW2{
         cars.add(new Cars(mark, age, serial));
         start();
     }
+
     private static void delBySerial() {
         System.out.println("Введите регистрационный номер машины");
         String serialNum = scan.nextLine();
         Iterator<Cars> iter = cars.iterator();
-        while (iter.hasNext()){
+        while (iter.hasNext()) {
             Cars c = iter.next();
             if (c.getSerial().equals(serialNum)) iter.remove();
         }
         start();
     }
+
     private static void delAll() {
         cars.clear();
         start();
